@@ -1,0 +1,13 @@
+.header {
+    background-color: orangered;
+    font-size:1.6rem;
+    padding: 3rem 0;
+}
+
+.header__text{
+    text-align: center;
+}
+
+.header__logo{
+    background-color: yellowgreen;
+}

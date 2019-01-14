@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import baseStyles from '../src/Assets/styles/base.module.css';
+import globalStyles from '../src/Assets/global-styles/bootstrap.min.module.css';
+import cx from 'classnames';
+
+import Header from './Header/header';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className={cx(baseStyles.base, globalStyles['container-fluid'])}>
+        <Header />
+        <div className="search row">
+          <div className="col-lg-6">Users</div>
+          <div className="col-lg-6">Organiszations</div>
+        </div>
+      
       </div>
     );
   }
