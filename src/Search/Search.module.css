@@ -1,31 +1,29 @@
-.search {
+
+.search, .search__results {
     font-size: 1.8rem;
-    padding: 4.5rem;
-    
+    background: white;
+    padding: 4rem;
+}
+.search > * {
+    border-radius: 5px;
 }
 
 .search__input {
-    background: lightblue;
-    padding: 2rem 0;
-}
-
-.search__input--box {
+    height: 4rem;
     background: lightgoldenrodyellow;
     outline: none;
-    border-radius: 5px;
     border: 1px solid grey;
 }
 
-.search__input--btn {
-    cursor: ponter;
+.search__btn {
+    cursor: pointer;
     font-size: inherit;
-    font-weight: 400;
+    font-weight: 700;
+    margin-left: 2rem;
 }
 
 .search__results {
-    background: white;
-    height: 50rem;
-    padding: 2rem;
+    overflow: scroll;
 }
 
 .search__counter {
@@ -38,4 +36,11 @@
 .search__list {
     background-color: lightslategray;
     list-style: none;
+}
+
+.emptyRepos {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 900;
+    color: darkgray;
 }
