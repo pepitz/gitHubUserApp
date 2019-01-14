@@ -23,9 +23,16 @@
 }
 
 .search__results {
-    background: lightsalmon;
+    background: white;
     height: 50rem;
     padding: 2rem;
+}
+
+.search__counter {
+    font-size: 2rem;
+    font-weight: 600;
+    border-bottom:1px solid #e1e4e8;
+    padding-bottom: 1.6rem;
 }
 
 .search__list {
