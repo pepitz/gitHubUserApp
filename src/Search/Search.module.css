@@ -1,0 +1,33 @@
+.search {
+    font-size: 1.8rem;
+    padding: 4.5rem;
+    
+}
+
+.search__input {
+    background: lightblue;
+    padding: 2rem 0;
+}
+
+.search__input--box {
+    background: lightgoldenrodyellow;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.search__input--btn {
+    cursor: ponter;
+    font-size: inherit;
+    font-weight: 400;
+}
+
+.search__results {
+    background: lightsalmon;
+    height: 50rem;
+    padding: 2rem;
+}
+
+.search__list {
+    background-color: lightslategray;
+}
