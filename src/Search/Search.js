@@ -3,27 +3,43 @@ import globalStyles from "../Assets/global-styles/bootstrap.min.module.css";
 import cx from "classnames";
 import classes from "./Search.module.css";
 
-import Profile from '../Profile/Profile';
+import Profile from "../Profile/Profile";
 
 class Search extends Component {
   state = {
-      users: [
-          {name: 'Max', age: 28},
-          {name: 'Jack', age: 29},
-          {name: 'Stephanie', age: 27},
-      ],
-      showResults: false
+    users: [
+      { name: "Max", age: 28 },
+      { name: "Jack", age: 29 },
+      { name: "Stephanie", age: 27 }
+    ],
+    showResults: true
   };
 
   toggleResultsHandler = () => {
     const doesShow = this.state.showResults;
-    this.setState({showResults: !doesShow});
+    this.setState({ showResults: !doesShow });
   };
 
   render() {
+    let results_users = null;
+    if (this.state.showResults) {
+      results_users = <ul className={cx(globalStyles["col-md-6"], classes.search__list)}>
+          {this.state.users.map((el, index) => {
+            return <li key={index}>
+                <Profile name={el.name} age={el.age} />
+              </li>;
+          })}
+        </ul>;
+    }
     return (
       <div className={cx(classes.search, globalStyles.row)}>
-        <div className={cx(classes.search__input, globalStyles["col-md-12"], globalStyles.row)}>
+        <div
+          className={cx(
+            classes.search__input,
+            globalStyles["col-md-12"],
+            globalStyles.row
+          )}
+        >
           <input
             type="text"
             placeholder="Search github..."
@@ -53,11 +69,7 @@ class Search extends Component {
             globalStyles.row
           )}
         >
-          <div className={cx(globalStyles["col-md-6"], classes.search__list)}>
-            <Profile name={this.state.users[0].name} age={this.state.users[0].age}></Profile>
-            <Profile name={this.state.users[1].name} age={this.state.users[1].age}></Profile>
-            <Profile name={this.state.users[2].name} age={this.state.users[2].age}></Profile>
-          </div>
+          {results_users}
           <div className={cx(globalStyles["col-md-6"])}>Organiszations</div>
         </div>
       </div>

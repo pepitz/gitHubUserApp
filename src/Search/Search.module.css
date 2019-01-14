@@ -30,4 +30,5 @@
 
 .search__list {
     background-color: lightslategray;
+    list-style: none;
 }
