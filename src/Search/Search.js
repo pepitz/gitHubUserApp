@@ -8,6 +8,7 @@ import Profile from "../Profile/Profile";
 import profileClasses from "../Profile/Profile.module.css";
 
 import { getRepos, getUserData } from "../Utilities/github-api";
+import Spinner from '../Spinner/Spinner';
 
 class Search extends Component {
   state = {
@@ -16,6 +17,7 @@ class Search extends Component {
     dataOrg: {},
     term: '',
     type: 'user',
+    loading: false,
   };
 
   termChangedHandler = event => {
@@ -25,10 +27,11 @@ class Search extends Component {
 
   submitSearchTermHandler = event => {
     event.preventDefault();
+    this.setState({loading: true});
     if (this.state.type === "user") {
       
       getRepos(this.state.term).then(response => {
-        this.setState({ data: response, showResults: true, dataOrg: {}});
+        this.setState({ loading: false, data: response, showResults: true, dataOrg: {}});
 
       });
     
@@ -36,7 +39,7 @@ class Search extends Component {
     if(this.state.type === "organization") {
       
       getUserData(this.state.term).then(response => {
-        this.setState({ dataOrg: response, showResults: true, data: [] });
+        this.setState({ loading: false, dataOrg: response, showResults: true, data: [] });
 
       });
         
@@ -95,7 +98,9 @@ class Search extends Component {
 
     return (
 
+        
         <Aux>
+          {this.state.loading ? <Spinner/> : null}
           <form onSubmit={this.submitSearchTermHandler}>
             <section className={cx( classes.search, globalStyles.row )}>
               <input type="text" value={this.state.term} placeholder="Search github..." className={cx(

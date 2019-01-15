@@ -1,8 +1,9 @@
 .header {
-    background-color: #3c4146;
+    background-color: black;
     font-size:1.6rem;
     padding: 3rem 0;
     color: #fff;
+    
 }
 
 .header__text{
@@ -11,8 +12,17 @@
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
+    line-height: 5rem;
 }
 
 .header__logo{
-    background-color: yellowgreen;
+    
+    text-align: center;
+}
+
+.header__logo img {
+    width: 5rem;
+    height: 5rem;
+    display: inline-block;
+
 }

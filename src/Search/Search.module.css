@@ -3,6 +3,7 @@
     font-size: 1.8rem;
     background: white;
     padding: 4rem 4rem 2rem 4rem;
+    position: relative;
 }
 
 .search__results {

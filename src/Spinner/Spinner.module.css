@@ -1,0 +1,55 @@
+.spinner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top:0;
+    background: rgba(0,0,0, .5);
+    color: white;
+    z-index: 10;
+}
+
+.spinner_container {
+    position: relative;
+    display: inline-block;
+    height: 10rem;
+    width:10rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-5rem, -5rem);
+
+}
+
+.spinner_container--logo{
+    width: 100%;
+    display: block;
+    height: 80%;
+    text-align: center;
+
+}
+
+
+.spinner_container--logo img {
+    width:8rem;
+    height: 8rem;
+    display: inline-block;
+    animation: rotating 20s linear infinte;
+}
+
+.spinner_container--title{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight:800;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(360deg);
+    }
+}
