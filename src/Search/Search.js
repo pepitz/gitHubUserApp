@@ -7,32 +7,50 @@ import Aux from "../hoc/Aux";
 import Profile from "../Profile/Profile";
 import profileClasses from "../Profile/Profile.module.css";
 
-import { getRepos } from "../Utilities/github-api";
+import { getRepos, getUserData } from "../Utilities/github-api";
 
 class Search extends Component {
   state = {
     showResults: false,
     data: [],
-    term: ''
+    dataOrg: {},
+    term: '',
+    type: 'user',
   };
 
   termChangedHandler = event => {
-    // console.log("[STATE] after [INPUT]=> onChange:", this.state.term);
+
     this.setState({ term: event.target.value });
   };
 
-  submitSearchTermHandler = () => {
-    getRepos(this.state.term).then(response=>{
-      this.setState({ data: response, showResults: true });
+  submitSearchTermHandler = event => {
+    event.preventDefault();
+    if (this.state.type === "user") {
       
-      // console.log('[STATE] after [BUTTON] => submitSearchTerm:', this.state.data);
-    });
+      getRepos(this.state.term).then(response => {
+        this.setState({ data: response, showResults: true, dataOrg: {}});
+
+      });
+    
+    } 
+    if(this.state.type === "organization") {
+      
+      getUserData(this.state.term).then(response => {
+        this.setState({ dataOrg: response, showResults: true, data: [] });
+
+      });
+        
+      }
+  };
+
+  selectTypeOfSearch = (event) => {
+    this.setState({type: event.target.value});
   };
 
   render() {
-    let results_users = null;
-    if (this.state.showResults) {
-      results_users = (
+    let results = null;
+    if (this.state.showResults && this.state.type === 'user') {
+      results = (
         <ul className={cx(globalStyles["col-md-12"], classes.search__list)}>
           {this.state.data.map((el, index) => {
             return (
@@ -49,45 +67,79 @@ class Search extends Component {
     }
 
     if(!this.state.showResults) {
-      results_users = (<div className={cx(globalStyles['col-md-12'], classes.emptyRepos)}>
+      results = (<div className={cx(globalStyles['col-md-12'], classes.emptyRepos)}>
         No Results Found!
       </div>);
+    }
+
+    if (this.state.showResults && this.state.type === "organization") {
+
+      results = <ul className={cx(globalStyles["col-md-12"], classes.search__list)}>
+          <li className={cx(globalStyles.row, profileClasses.profile)}>
+            <h3 className={cx(classes.profile__title, globalStyles["col-md-6"])}>
+              <a href={this.state.dataOrg.user.repos_url}>
+                {this.state.dataOrg.user.repos_url}
+              </a>
+            </h3>
+            <div
+              className={cx(
+                classes.profile__title,
+                globalStyles["col-md-6"]
+              )}
+            >
+              {this.state.dataOrg.user.login}
+            </div>
+          </li>
+        </ul>;
     }
 
     return (
 
         <Aux>
-          <section className={cx( classes.search, globalStyles.row )}>
-            <input type="text" placeholder="Search github..." className={cx(
-                classes["search__input"],
-                globalStyles["col-md-4"]
-              )}
-              onChange={this.termChangedHandler} />
-  
-            <button className={cx(
+          <form onSubmit={this.submitSearchTermHandler}>
+            <section className={cx( classes.search, globalStyles.row )}>
+              <input type="text" value={this.state.term} placeholder="Search github..." className={cx(
+                  classes["search__input"],
+                  globalStyles["col-md-3"]
+                )}
+                onChange={this.termChangedHandler} />
+                <input type="submit" value="Search" className={cx(
                 classes["search__btn"],
                 globalStyles["col-md-auto"],
                 globalStyles["offset-md-1"],
                 globalStyles.btn,
                 globalStyles["btn-primary"]
               )}
-              onClick={this.submitSearchTermHandler}
-            >
-              Search
-            </button>
-          </section>
+              disabled={this.state.term === ''} />
+
+              
+            </section>
+            
+            <section className={cx(classes.search__options, globalStyles.row)}>
+  
+                <label className={cx(globalStyles['col-md-2'])} htmlFor="user">
+                  User: <input type="radio" name="user" value="user" 
+                  checked={this.state.type === 'user'} onChange={this.selectTypeOfSearch} />
+                </label>
+
+                <label className={cx(globalStyles['col-md-2'])} htmlFor="organization">
+                  Organization: <input type="radio" name="organization" value="organization"
+                  checked={this.state.type === 'organization'} onChange={this.selectTypeOfSearch} />
+                </label>
+                
+            </section>
+          </form>
   
           <section className={cx( classes.search__results, globalStyles.row )}>
             <div className={cx(globalStyles["col-md-12"])}>
               <h3 className={cx(globalStyles.row, classes.search__counter)}>
                 <span className={cx(globalStyles["col-md-12"])}>
-                  {this.state.data.length} repository results
+                  {this.state.type === 'user' ? this.state.data.length : 1} repository results
                 </span>
               </h3>
     
               <div className={cx(globalStyles.row)}>
-                {results_users}
-                <div className={cx(globalStyles["col-md-12"])}>Organizations</div>
+                {results}
               </div>
             </div>
           </section>

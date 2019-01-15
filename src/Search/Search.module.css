@@ -1,9 +1,14 @@
 
-.search, .search__results {
+.search {
     font-size: 1.8rem;
     background: white;
+    padding: 4rem 4rem 2rem 4rem;
+}
+
+.search__results {
     padding: 4rem;
 }
+
 .search > * {
     border-radius: 5px;
 }
@@ -13,6 +18,14 @@
     background: lightgoldenrodyellow;
     outline: none;
     border: 1px solid grey;
+    transition: all .2s;
+    transform-origin: left center 0;
+}
+
+
+.search__options{
+    font-size: 1.8rem;
+    padding: 2rem 4rem 4rem 4rem;
 }
 
 .search__btn {
@@ -44,3 +57,4 @@
     font-weight: 900;
     color: darkgray;
 }
+

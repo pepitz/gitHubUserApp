@@ -1,7 +1,8 @@
 .header {
-    background-color: orangered;
+    background-color: #3c4146;
     font-size:1.6rem;
     padding: 3rem 0;
+    color: #fff;
 }
 
 .header__text{
